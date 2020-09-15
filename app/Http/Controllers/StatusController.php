@@ -38,7 +38,7 @@ class StatusController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:statuses,name|max:16|alpha'
+            'name' => 'required|not_regex:/[\d]/i|unique:statuses,name|max:16|alpha'
         ]);
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -85,7 +85,7 @@ class StatusController extends Controller
     public function update(Request $request, Status $status)
     {
         $validator = Validator::make($request->all(), [
-            'name' => "required|max:15|alpha|unique:statuses,name, $status->id"
+            'name' => "required|max:15|not_regex:/[\d]/i|unique:statuses,name, $status->id"
         ]);
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();

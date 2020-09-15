@@ -99,10 +99,8 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         $validator = Validator::make($request->all(), [
-            'task_name' => "required|max:128|alpha|unique:statuses,name, $task->id",
+            'task_name' => "required|max:128|unique:statuses,name, $task->id",
             'task_description' => 'required',
-            'add_date' => 'date',
-            'completed_date' => 'date'
         ]);
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();

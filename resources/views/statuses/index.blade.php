@@ -13,7 +13,7 @@
     <div class="col-md-3">
         {{-- ADD FORM --}}
         @if (isset($_GET['form']['add']))
-        <form action="{{route('statuses.store')}}" method="POST">
+        <form action="{{route('statuses.store')}}" method="POST" autocomplete="off">
             @csrf
             <div class="form-group">
                 <label>Pavadinimas: </label>
@@ -27,7 +27,7 @@
         </form>
         {{-- EDIT FORM --}}
         @elseif (isset($_GET['form']['edit']))
-        <form action="{{route('statuses.update', $_GET['id'])}}" method="POST">
+        <form action="{{route('statuses.update', $_GET['id'])}}" method="POST" autocomplete="off">
             @csrf @method("PUT")
             <div class="form-group">
                 <label>Pavadinimas: </label>

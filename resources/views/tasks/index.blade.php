@@ -8,7 +8,7 @@
     @endif
     <a style="margin: 0 0 10px 0" class="btn btn-primary" href="{{route('tasks.create')}}">Create new</a>
     <br>
-    <form style="float: right" style="width: 30%" action="{{ route('tasks.index') }}" method="GET">
+    <form style="float: right" style="width: 30%" action="{{ route('tasks.index') }}" method="GET" autocomplete="off">
         <select name="status_id" id="" class="form-control">
             <option value="" selected disabled>Pasirinkite statusa uzduociu filtravimui:</option>
             @foreach ($statuses as $status)
@@ -27,7 +27,7 @@
     <div class="col-md-3">
         {{-- ADD FORM --}}
         @if (isset($_GET['form']['add']))
-        <form action="{{route('tasks.store')}}" method="POST">
+        <form action="{{route('tasks.store')}}" method="POST" autocomplete="off">
             @csrf
             <div class="form-group">
                 <label>Pavadinimas: </label>
@@ -117,9 +117,9 @@
                     <th>Id</th>
                     <th>Task name</th>
                     <th style="width: 20%">Task description</th>
-                    <th>Status ID</th>
-                    <th>Complete Until</th>
-                    <th>Completed</th>
+                    <th>Status</th>
+                    <th style="width: 15%">Complete Until</th>
+                    <th style="width: 15%">Completed</th>
                     @if (Auth::check())
                     @auth
                     <th style="width: 20%">Actions</th> 
@@ -133,8 +133,8 @@
                 <td>{{$task->task_name}}</td>
                 <td>{!! $task->task_description !!}</td>
                 <td>{{$task->status['name']}}</td>
-                <td>{{$task->add_date}}</td>
-                <td style="text-align: center;">{{$task->completed_date !== null ? $task->completed_date : '-'}}</td>
+                <td>{{preg_replace('/(00:00:00)/i', '', $task->add_date)}}</td>
+                <td style="text-align: center;">{{$task->completed_date !== null ? preg_replace('/(00:00:00)/i', '', $task->completed_date) : '-'}}</td>
                 @if (Auth::check())
                 @auth
                 <td>
@@ -159,9 +159,9 @@
                 <th>Id</th>
                 <th>Task name</th>
                 <th style="width: 35%">Task description</th>
-                <th>Status ID</th>
-                <th>Complete Until</th>
-                <th>Completed</th>
+                <th>Status</th>
+                <th style="width: 15%">Complete Until</th>
+                <th style="width: 15%">Completed</th>
                 @if (Auth::check())
                 @auth
                 <th style="width: 15%">Actions</th> 
@@ -175,8 +175,8 @@
             <td>{{$task->task_name}}</td>
             <td>{!! $task->task_description !!}</td>
             <td>{{$task->status['name']}}</td>
-            <td>{{$task->add_date}}</td>
-            <td style="text-align: center;">{{$task->completed_date !== null ? $task->completed_date : '-'}}</td>
+            <td>{{preg_replace('/(00:00:00)/i', '', $task->add_date)}}</td>
+            <td style="text-align: center;">{{$task->completed_date !== null ? preg_replace('/(00:00:00)/i', '', $task->completed_date) : '-'}}</td>
             @if (Auth::check())
             @auth
             <td>
